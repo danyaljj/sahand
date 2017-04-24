@@ -34,13 +34,13 @@ libraryDependencies += "github.sahand" % "sahand-client_2.11" % "1.0"
 This snippet shows how you can send calls to the server. 
  
 ```scala 
-import sahand.SimilarityType
+import github.sahand.SimilarityNames
 
 object ExampleUsage {
   def main(args: Array[String]): Unit = {
     // create a client and send calls
     val client = new SahandClient("http://localhost:9001/")
-    println(client.getScore("start", "begin", SimilarityType.word2vec))
+    println(client.getScore("start", "begin", SimilarityNames.word2vec))
   }
 }
 ```
@@ -48,7 +48,7 @@ object ExampleUsage {
 Note that you can write your own client in your favorite language and send calls to the server.   
 
 ## Supported metrics 
- To see what is supported, import `SimilarityType` object. Here is a list: 
+ To see what is supported, import `SimilarityNames` object. Here is a list: 
  
  | Metric    | Explanation                           | Paper?                                                              |
  |-----------|---------------------------------------|---------------------------------------------------------------------|
@@ -56,7 +56,6 @@ Note that you can write your own client in your favorite language and send calls
  | phrasesim | Paragraph Vectors (Paragram)          | [Wieting et al, 2015](https://arxiv.org/abs/1507.07998)             | 
  | wnsim     | WNSim WordNet-based Similarity Metric | [Do et al, 2009](http://cogcomp.cs.illinois.edu/papers/DRSTV09.pdf) | 
  | nesim     | Named Entity Similarity Metric        | [Do et al, 2009](http://cogcomp.cs.illinois.edu/papers/DRSTV09.pdf) | 
- |           |                                       |                                                                     | 
 
  
 ## Future work 

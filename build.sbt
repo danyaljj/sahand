@@ -25,14 +25,17 @@ lazy val commonSettings = Seq(
 )
 
 lazy val client = (project in file("client")).
-  dependsOn(server).
-  aggregate(server).
   settings(commonSettings: _*).
   settings(
-    name:= "sahand-client"
+    name:= "sahand-client",
+    libraryDependencies ++= Seq(
+      "com.typesafe.play" % "play-json_2.11" % "2.5.10"
+    )
   )
 
 lazy val server = (project in file("server")).
+  dependsOn(client).
+  aggregate(client).
   settings(commonSettings: _*).
   enablePlugins(PlayScala).
   disablePlugins(PlayLogback).

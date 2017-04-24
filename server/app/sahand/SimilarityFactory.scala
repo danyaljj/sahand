@@ -6,6 +6,7 @@ import javax.inject._
 import com.medallia.word2vec.Word2VecModel
 import edu.illinois.cs.cogcomp.entitySimilarity.compare.WebWrapper
 import edu.illinois.cs.cogcomp.sim.{PhraseSim, WNSimSimple}
+import github.sahand.SimilarityNames
 import org.cogcomp.Datastore
 import play.api.libs.json.Json
 import play.api.mvc._
@@ -22,19 +23,8 @@ object SimilarityFactory {
   lazy val phraseSim: PhraseSim = PhraseSim.getInstance()
 }
 
-object SimilarityType {
-  val word2vec = "word2vec"
-  val wnsim = "wnsim"
-  val nesim = "nesim"
-  val phrasesim = "phrasesim"
-  val esa = "esa"
-  val brown = "brown"
-  val lda = "lda"
-  val glove = "glove"
-}
-
 /** Various options for computing similarity */
-sealed trait SimilarityType {
+sealed trait SimilarityTrait {
 
   // turn a one-sided score into a symmetric one
   protected def getSymmetricScore(text1: String, text2: String, context1: Option[String], context2: Option[String],
@@ -63,7 +53,7 @@ sealed trait SimilarityType {
 }
 
 // cosine distance between two pieces of text (inherently symmetric)
-class Word2VecSimilarity(word2vecFile: File) extends SimilarityType {
+class Word2VecSimilarity(word2vecFile: File) extends SimilarityTrait {
   private val w2vModel = Word2VecModel.fromBinFile(word2vecFile)
   private val w2vNoMatchStr = "</s>" // string used by word2vec when there is no match
   private def getWord2VecScore(text1: String, text2: String): Double = {
@@ -125,16 +115,16 @@ class SimilarityFactory @Inject() extends Controller {
     val metricsList = metrics.split(",").map(_.trim)
 
     val listOfResponse = metricsList.map {
-      case SimilarityType.word2vec => SimilarityResponse(str1, str2, SimilarityType.word2vec, SimilarityFactory.w2v.getScore(str1, str2))
-      case SimilarityType.phrasesim =>
+      case SimilarityNames.word2vec => SimilarityResponse(str1, str2, SimilarityNames.word2vec, SimilarityFactory.w2v.getScore(str1, str2))
+      case SimilarityNames.phrasesim =>
         val result = SimilarityFactory.phraseSim.compare(str1.split(" "), str2.split(" "))
-        SimilarityResponse(str1, str2, SimilarityType.phrasesim, result.score, result.reason)
-      case SimilarityType.wnsim =>
+        SimilarityResponse(str1, str2, SimilarityNames.phrasesim, result.score, result.reason)
+      case SimilarityNames.wnsim =>
         val response = SimilarityFactory.wnSim.compare(str1, str2)
-        SimilarityResponse(str1, str2, SimilarityType.wnsim, response.score, log = response.reason)
-      case SimilarityType.nesim =>
+        SimilarityResponse(str1, str2, SimilarityNames.wnsim, response.score, log = response.reason)
+      case SimilarityNames.nesim =>
         SimilarityFactory.neSim.compare(str1, str2)
-        SimilarityResponse(str1, str2, SimilarityType.wnsim, SimilarityFactory.neSim.getScore, log = SimilarityFactory.neSim.getReason)
+        SimilarityResponse(str1, str2, SimilarityNames.wnsim, SimilarityFactory.neSim.getScore, log = SimilarityFactory.neSim.getReason)
       case _ => SimilarityResponse(str1, str2, "", SimilarityFactory.w2v.getScore(str1, str2), log = "Similarity type invalid . . . ")
     }
 
