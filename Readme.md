@@ -25,8 +25,13 @@ The steps are pretty simple. You have to get two machines:
 With this you should be able to check the api in your browser. Here is an example input: 
 `http://localhost:9001/similarity?str1=walking&str2=running&metrics=phrasesim`
  
- 
-And this snippet shows how you can send calls to the server. 
+You can exploit this proframmatically by adding the *client* to your program: 
+```sbt
+resolvers += "CogcompSoftware" at "http://cogcomp.cs.illinois.edu/m2repo/"
+libraryDependencies += "github.danyaljj" % "sahand-client_2.11" % "1.0"
+```
+
+This snippet shows how you can send calls to the server. 
  
 ```scala 
 import controllers.github.danyaljj.SimilarityType
