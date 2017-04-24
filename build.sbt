@@ -9,7 +9,7 @@ lazy val user = if (envUser == null) System.getProperty("user.name") else envUse
 lazy val keyFile = new java.io.File(Path.userHome.absolutePath + "/.ssh/id_rsa")
 
 lazy val commonSettings = Seq(
-  organization := "github.danyaljj",
+  organization := "github.sahand",
   version := "1.0-SNAPSHOT",
   scalaVersion := "2.11.8", // this is necessary because Play doesn't work in earlier versions of scala
   javaOptions ++= Seq("-Xmx25G", "-XX:MaxMetaspaceSize=5g"),
@@ -52,7 +52,7 @@ lazy val server = (project in file("server")).
   )
 
 // Adds additional packages into Twirl
-//TwirlKeys.templateImports += "github.danyaljj.controllers._"
+//TwirlKeys.templateImports += "github.sahand.controllers._"
 
 // Adds additional packages into conf/routes
-// play.sbt.routes.RoutesKeys.routesImport += "github.danyaljj.binders._"
+// play.sbt.routes.RoutesKeys.routesImport += "github.sahand.binders._"

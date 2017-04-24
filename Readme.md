@@ -1,7 +1,7 @@
 # Sahand 
 Because using similarity metrics are often headache. Why? 
  - You have to download many random big files from here and there, and I hate it. 
- - It takes much memory. And I don't like to use my experimentation's memory with these resources. 
+ - It takes much memory. My experimentation-machine often doesn't have too much memory. And I don't like to use my memory on sth that I don't actively use.  
 
 So I created this for my personal usage. How do I get around these issues? 
 
@@ -28,13 +28,13 @@ With this you should be able to check the api in your browser. Here is an exampl
 You can exploit this proframmatically by adding the *client* to your program: 
 ```sbt
 resolvers += "CogcompSoftware" at "http://cogcomp.cs.illinois.edu/m2repo/"
-libraryDependencies += "github.danyaljj" % "sahand-client_2.11" % "1.0"
+libraryDependencies += "github.sahand" % "sahand-client_2.11" % "1.0"
 ```
 
 This snippet shows how you can send calls to the server. 
  
 ```scala 
-import controllers.github.danyaljj.SimilarityType
+import sahand.SimilarityType
 
 object ExampleUsage {
   def main(args: Array[String]): Unit = {

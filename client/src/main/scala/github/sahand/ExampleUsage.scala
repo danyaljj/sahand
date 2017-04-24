@@ -1,6 +1,6 @@
-package github.danyaljj
+package github.sahand
 
-import controllers.github.danyaljj.SimilarityType
+import sahand.SimilarityType
 
 object ExampleUsage {
   def main(args: Array[String]): Unit = {
