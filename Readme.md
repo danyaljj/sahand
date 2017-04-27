@@ -45,7 +45,9 @@ object ExampleUsage {
 }
 ```
 
-Note that you can write your own client in your favorite language and send calls to the server.   
+**Note:** You can write your own client in your favorite language and send calls to the server.   
+**Note:** There is MapDB caching on the client side, i.e. each query is saved on disk locally.    
+
 
 ## Supported metrics 
  To see what is supported, import `SimilarityNames` object. Here is a list: 
@@ -66,4 +68,4 @@ Add support for:
  
 ## About the name
 *Sahand* (Kurdish/Persian : سهند), is a mountain in East Azerbaijan Province, northwestern Iran. 
-Itt is the highest mountain in the province of East Azarbaijan. ([Read more](https://en.wikipedia.org/wiki/Sahand))
+It is the highest mountain in the province of East Azarbaijan. ([Read more](https://en.wikipedia.org/wiki/Sahand))

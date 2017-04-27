@@ -10,7 +10,7 @@ lazy val keyFile = new java.io.File(Path.userHome.absolutePath + "/.ssh/id_rsa")
 
 lazy val commonSettings = Seq(
   organization := "github.sahand",
-  version := "1.0-SNAPSHOT",
+  version := "1.1",
   scalaVersion := "2.11.8", // this is necessary because Play doesn't work in earlier versions of scala
   javaOptions ++= Seq("-Xmx25G", "-XX:MaxMetaspaceSize=5g"),
   publishTo := Some(
@@ -29,7 +29,8 @@ lazy val client = (project in file("client")).
   settings(
     name:= "sahand-client",
     libraryDependencies ++= Seq(
-      "com.typesafe.play" % "play-json_2.11" % "2.5.10"
+      "com.typesafe.play" % "play-json_2.11" % "2.5.10",
+      "org.mapdb" % "mapdb" % "3.0.0-M5"
     )
   )
 
