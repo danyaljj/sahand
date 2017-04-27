@@ -118,7 +118,8 @@ class SimilarityFactory @Inject() extends Controller {
       case SimilarityNames.word2vec => SimilarityResponse(str1, str2, SimilarityNames.word2vec, SimilarityFactory.w2v.getScore(str1, str2))
       case SimilarityNames.phrasesim =>
         val result = SimilarityFactory.phraseSim.compare(str1.split(" "), str2.split(" "))
-        SimilarityResponse(str1, str2, SimilarityNames.phrasesim, result.score, result.reason)
+        val score = if(result.score.isNaN) -100.0 else result.score
+        SimilarityResponse(str1, str2, SimilarityNames.phrasesim, score, result.reason)
       case SimilarityNames.wnsim =>
         val response = SimilarityFactory.wnSim.compare(str1, str2)
         SimilarityResponse(str1, str2, SimilarityNames.wnsim, response.score, log = response.reason)
