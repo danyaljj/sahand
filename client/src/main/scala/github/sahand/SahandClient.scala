@@ -12,8 +12,8 @@ import scala.io.Source
   */
 class SahandClient(endPoint: String, dbFile: String = "sahandClientDB.db") {
 
-  val dataset = "sahand"
-  val db = DBMaker.fileDB(dbFile).transactionEnable().closeOnJvmShutdown().make()
+  private val dataset = "sahand"
+  private var db = DBMaker.fileDB(dbFile).closeOnJvmShutdown().transactionEnable().make()
 
   def createKey(text1: String, text2: String, metric: String): String = { text1 + text2 + metric }
 
@@ -65,6 +65,11 @@ class SahandClient(endPoint: String, dbFile: String = "sahandClientDB.db") {
   def close() {
     db.commit()
     db.close()
+  }
+
+  def useCache(str: String): Unit = {
+    db.close()
+    db = DBMaker.fileDB(str).closeOnJvmShutdown().transactionEnable().make()
   }
 
 }
