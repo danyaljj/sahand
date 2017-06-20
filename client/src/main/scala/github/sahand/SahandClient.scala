@@ -44,7 +44,7 @@ class SahandClient(endPoint: String, dbFile: String = "sahandClientDB.db") {
       val headResult = parsedJson.as[JsArray].value.head
       val score = (headResult \ "score").validate[Double].get
       saveOnDB(key, score)
-      println("Saving on db . . . ")
+      //println("Saving on db . . . ")
       score
     }
   }
@@ -67,7 +67,7 @@ class SahandClient(endPoint: String, dbFile: String = "sahandClientDB.db") {
     db.close()
   }
 
-  def useCache(str: String): Unit = {
+  def useCaching(str: String): Unit = {
     db.close()
     db = DBMaker.fileDB(str).closeOnJvmShutdown().transactionEnable().make()
   }
