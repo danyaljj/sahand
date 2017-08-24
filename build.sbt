@@ -2,7 +2,7 @@ import sbt._
 import sbt.Keys._
 
 
-lazy val root = project in file(".")
+lazy val root = (project in file(".")).settings(commonSettings: _*)
 
 lazy val envUser = System.getenv("COGCOMP_USER")
 lazy val user = if (envUser == null) System.getProperty("user.name") else envUser
@@ -15,8 +15,8 @@ lazy val commonSettings = Seq(
   javaOptions ++= Seq("-Xmx25G", "-XX:MaxMetaspaceSize=5g"),
   publishTo := Some(
     Resolver.ssh(
-      "CogcompSoftwareRepo", "bilbo.cs.illinois.edu",
-      "/mounts/bilbo/disks/0/www/cogcomp/html/m2repo/") as (user, keyFile)
+      "CogcompSoftwareRepo", "legolas.cs.illinois.edu",
+      "/srv/data/cogcomp/html/m2repo") as (user, keyFile)
     ),
   resolvers ++= Seq(
     Resolver.mavenLocal,
