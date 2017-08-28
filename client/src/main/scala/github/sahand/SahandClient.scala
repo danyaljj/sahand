@@ -55,7 +55,12 @@ class SahandClient(endPoint: String, dbFile: String = "sahandClientDB.db") {
   }
 
   @throws(classOf[java.io.IOException])
-  private def get(url: String) = Source.fromURL(url).mkString
+  private def get(url: String) = {
+    val source = Source.fromURL(url)
+    val content = source.mkString
+    source.close()
+    content
+  }
 
   /**
     * MapDB requires the database to be closed at the end of operations. This is usually handled by the
