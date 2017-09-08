@@ -1,6 +1,7 @@
 package github.sahand
 
-import java.net.URLEncoder
+import java.io.{BufferedReader, InputStreamReader}
+import java.net.{URL, URLEncoder}
 
 import org.mapdb.{DBMaker, Serializer}
 
@@ -63,8 +64,10 @@ class SahandClient(endPoint: String, dbFile: String = "sahandClientDB.db") {
     content
     */
     // replacing this, since it keeps failing because of SocketClosedException
+    import scala.collection.mutable.ArrayBuffer
     val url = new URL(urlString)
-    val in = new BufferedReader(new InputStreamReader(url.openStream))
+    val inputStreamReader = new InputStreamReader(url.openStream)
+    val in = new BufferedReader(inputStreamReader)
     val buffer = new ArrayBuffer[String]()
     var inputLine = in.readLine
     while (inputLine != null) {
@@ -73,6 +76,7 @@ class SahandClient(endPoint: String, dbFile: String = "sahandClientDB.db") {
       }
       inputLine = in.readLine
     }
+    inputStreamReader.close()
     in.close
     inputLine
   }
