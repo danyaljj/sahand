@@ -55,11 +55,26 @@ class SahandClient(endPoint: String, dbFile: String = "sahandClientDB.db") {
   }
 
   @throws(classOf[java.io.IOException])
-  private def get(url: String) = {
-    val source = Source.fromURL(url)
+  private def get(urlString: String) = {
+    /*
+    val source = Source.fromURL(urlString)
     val content = source.mkString
     source.close()
     content
+    */
+    // replacing this, since it keeps failing because of SocketClosedException
+    val url = new URL(urlString)
+    val in = new BufferedReader(new InputStreamReader(url.openStream))
+    val buffer = new ArrayBuffer[String]()
+    var inputLine = in.readLine
+    while (inputLine != null) {
+      if (!inputLine.trim.equals("")) {
+        buffer += inputLine.trim
+      }
+      inputLine = in.readLine
+    }
+    in.close
+    inputLine
   }
 
   /**

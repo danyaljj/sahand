@@ -10,7 +10,7 @@ lazy val keyFile = new java.io.File(Path.userHome.absolutePath + "/.ssh/id_rsa")
 
 lazy val commonSettings = Seq(
   organization := "github.sahand",
-  version := "1.2.3",
+  version := "1.2.4",
   scalaVersion := "2.11.8", // this is necessary because Play doesn't work in earlier versions of scala
   javaOptions ++= Seq("-Xmx25G", "-XX:MaxMetaspaceSize=5g"),
   publishTo := Some(
