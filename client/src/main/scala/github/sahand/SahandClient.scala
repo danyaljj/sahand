@@ -66,8 +66,7 @@ class SahandClient(endPoint: String, dbFile: String = "sahandClientDB.db") {
     // replacing this, since it keeps failing because of SocketClosedException
     import scala.collection.mutable.ArrayBuffer
     val url = new URL(urlString)
-    val inputStreamReader = new InputStreamReader(url.openStream)
-    val in = new BufferedReader(inputStreamReader)
+    val in = new BufferedReader(new InputStreamReader(url.openStream))
     val buffer = new ArrayBuffer[String]()
     var inputLine = in.readLine
     while (inputLine != null) {
@@ -76,7 +75,6 @@ class SahandClient(endPoint: String, dbFile: String = "sahandClientDB.db") {
       }
       inputLine = in.readLine
     }
-    inputStreamReader.close()
     in.close
     inputLine
   }
