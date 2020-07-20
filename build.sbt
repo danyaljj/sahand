@@ -20,7 +20,7 @@ lazy val commonSettings = Seq(
     ),
   resolvers ++= Seq(
     Resolver.mavenLocal,
-    "CogcompSoftware" at "http://cogcomp.cs.illinois.edu/m2repo/"
+    "CogcompSoftware" at "https://cogcomp.seas.upenn.edu/m2repo/"
   )
 )
 
